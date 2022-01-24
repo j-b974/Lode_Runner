@@ -35,4 +35,6 @@ function init()
     interval = setInterval(Game ,1000/60);
 }
 
+
+
 init()
