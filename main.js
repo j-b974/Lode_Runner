@@ -8,6 +8,9 @@ let interval;
 
 let Timer = new Date();
 
+const WidthWindow = cavas.clientWidth;
+
+const HeightWindow = cavas.clientHeight;
 
 
 function Game()
@@ -20,7 +23,7 @@ function Game()
 
     Game_update(dt);
 
-    CTX.clearRect(0 , 0 , cavas.clientWidth , cavas.clientHeight);
+    CTX.clearRect(0 , 0 ,  WidthWindow , HeightWindow );
 
     Game_draw(CTX);
 

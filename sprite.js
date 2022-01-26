@@ -46,7 +46,7 @@ class sprite{
 
     }
 
-    StartAnimaiton(pname)
+    StartAnimation(pname)
     {
         if(this.currentAnimation != null && this.currentAnimation.name == pname && !this.currentAnimation.end)
         {
