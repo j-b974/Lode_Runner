@@ -17,13 +17,7 @@ let map1 = [
     '000000hhhhh000h',
     '00000000000000h',
     'h0hhhhhhhhhhhhh',
-    'h',
-    '0',
-    '0',
-    'h',
-    '0',
-    '0',
-    'h',
+
 ];
 
 let Level = null;

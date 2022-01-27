@@ -133,7 +133,7 @@ class hero{
     {
         this.heroSprite.draw(ctx);
 
-
+    }
     //============ debug ======================    
     //     ctx.font = "18px serif";
     //     ctx.fillStyle = 'rgb(255, 255, 255)';
