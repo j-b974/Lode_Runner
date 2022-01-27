@@ -1,5 +1,6 @@
 class map{
 
+    // TO DO scroler le background
 
     /**
      * @param {img} backgroundImg un img de font d'ecran;
@@ -15,12 +16,15 @@ class map{
         this.X = 0 ;
         this.Y = 0 ;
 
+        this.MaxWidth= 1125; //TO DO à definir auto
+        this.MaxHeight = 975; // TO DO à definir auto
+
         this.VX = 0;
         this.VY = 0;
 
        
         this.shadowCubeWidth = WidthWindow/2;
-        this.shadowCubeHeight = WidthWindow/2
+        this.shadowCubeHeight = HeightWindow/2
         this.shadowCubeX = (WidthWindow/2)-(this.shadowCubeWidth/2);
         this.shadowCubeY = (HeightWindow/2)-(this.shadowCubeHeight/2);
 
@@ -42,7 +46,7 @@ class map{
     draw(ctx)
     {
 
-        ctx.drawImage(this.background , this.X+ this.backgroundVX , this.Y+this.backgroundVY);
+        ctx.drawImage(this.background ,  this.backgroundVX , this.backgroundVY);
 
 
         let x = 0;
@@ -62,16 +66,19 @@ class map{
 
                 let tuille = ligne.substring(c,c+1);
                 if( tuille != "0"){
-                ctx.drawImage(this.lstTuille[tuille],x+this.VX,y+this.VY);
-                }
-            
+                ctx.drawImage(this.lstTuille[tuille],x+this.X,y+this.Y);
+                }       
             }
-
             y+= 75;
 
         }
 
+        //============ debug ======================  
+
+        // ctx.globalAlpha = 0.45;
+        // ctx.fillStyle = 'rgb(0, 0, 0)';
         // ctx.fillRect( this.shadowCubeX +this.VX, this.shadowCubeY + this.VY, this.shadowCubeWidth , this.shadowCubeHeight);
+        // ctx.globalAlpha = 1;
         
     }
 }

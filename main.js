@@ -2,11 +2,17 @@ console.log("connecté");
 
 let cavas = document.getElementById('jeux_lode_runner');
 
+
 let CTX = cavas.getContext('2d');
 
 let interval;
 
 let Timer = new Date();
+
+
+//  cavas.width = window.innerWidth;
+//   cavas.height = window.innerHeight;
+
 
 const WidthWindow = cavas.clientWidth;
 

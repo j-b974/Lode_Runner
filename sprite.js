@@ -13,6 +13,8 @@ class sprite{
             height:0
 
         };
+        this.height = pimg.height;
+        this.width = pimg.width;
         this.loop = false;
         this.currentFrame = 3;
         this.lstAnimation = [];
