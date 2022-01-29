@@ -4,8 +4,9 @@ class hero{
     {
         this.heroSprite = heroSprite;
         this.X = heroSprite.x = 50;
-        this.Y = heroSprite.y = 0;
+        this.Y = heroSprite.y = 50;
         this.heroSprite.width=75; // TO DO  à definir auto
+        this.heroSprite.height=74;
         this.speed = 300;
         this.animation();
 
@@ -28,104 +29,66 @@ class hero{
         this.heroSprite.y = this.Y ;
         let MaxMapWidth = map.MaxWidth;
         let MaxMapHeight = map.MaxHeight;
+
+        let heroX = this.X + this.heroSprite.cameraX;
+        let heroY = this.Y + this.heroSprite.cameraY;
        
-       if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowLeft"))
+       if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowLeft") && this.X >= 0)
        {
            this.heroSprite.StartAnimation('runLeft');
 
-           if(this.X >= map.shadowCubeX)
-           {
-               this.X -= 1*dt*this.speed;
-           }
-           else
-           {
-                if(map.X <= 0)
-                {
-                    map.X += 1*dt*this.speed;
-                }else{
-
-                    if(this.X >= 0)
-                    {
-                        this.X -= 1*dt*this.speed;
-                    }
-                }
-
-           }
+            this.X -= dt*this.speed;
+             
        }
-       if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowRight"))
+        // ============ deplacement ecran vers la gauche limité a la map ===============
+       if( heroX <= map.shadowCubeX && this.X >= map.shadowCubeX)
+       {  
+           this.heroSprite.cameraX += dt*this.speed;
+           map.cameraX += dt*this.speed;
+       }
+
+       if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowRight")&& this.X <= MaxMapWidth)
        {
            this.heroSprite.StartAnimation('runRight');
-           if(this.X <= (map.shadowCubeX+map.shadowCubeWidth-this.heroSprite.width))
-           {
-               if(this.X+ this.heroSprite.width <= MaxMapWidth)
-               {
-                   this.X += 1*dt*this.speed;
-               }
-           }else
-           {
-                if(map.X+MaxMapWidth- WidthWindow  >= 0)
-                {
-                    console.log(map.X)
-                    map.X -= 1*dt*this.speed;
-                }else
-                {
-                    if(this.X+ this.heroSprite.width <= WidthWindow)
-                    {
-                         this.X += 1*dt*this.speed;
-                    }
-                }
-           }
+           
+            this.X += dt*this.speed;   
        }
-       if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowUp"))
+
+        // ============ deplacement ecran vers la droite limité a la map ===============
+       let margeRight = MaxMapWidth -  (WidthWindow -(map.shadowCubeX+map.shadowCubeWidth)+this.heroSprite.width);
+       
+       if(heroX > map.shadowCubeX+map.shadowCubeWidth-this.heroSprite.width && this.X < margeRight)
+       {
+            this.heroSprite.cameraX -= dt*this.speed;
+            map.cameraX -= dt*this.speed;
+       }
+       if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowUp") && this.Y >= 0)
        {
            this.heroSprite.StartAnimation('grimp');
-           if(this.Y >= (map.shadowCubeY))
-           {
-                if(map.Y >= 0)
-                {
-                    map.Y -= 1*dt*this.speed;
-                }else{
 
-                    if(this.Y >= 0)
-                    {
-                        this.Y -= 1*dt*this.speed;
-                    }
-                }
-           }
-           else
-           {
-                if(map.Y <= 0)
-                {
-                    map.Y += 1*dt*this.speed;
-                }else{
-                    if(this.Y >= 0)
-                    {
-                        this.Y -= 1*dt*this.speed;
-                    }
-                }
-           }
+            this.Y -= 1*dt*this.speed;
        }
-       if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowDown"))
+       // ============ deplacement ecran vers le Haut limité a la map ===============
+       if(heroY <= map.shadowCubeY && this.Y >= map.shadowCubeY)
+       {
+           this.heroSprite.cameraY += dt*this.speed;
+           map.cameraY += dt*this.speed;
+       }
+
+       if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowDown")&& this.Y <= MaxMapHeight-this.heroSprite.height)
        {
             this.heroSprite.StartAnimation('grimp');
 
-           if(this.Y <= (map.shadowCubeY+map.shadowCubeHeight-this.heroSprite.width))
-           {
-               this.Y += 1*dt*this.speed;
-           }
-           else
-           {
-                if(map.Y +MaxMapHeight- HeightWindow >= 0)
-                {
-                    map.Y -= 1*dt*this.speed ;
-                }else{
-                    if(this.Y +this.heroSprite.width <=  HeightWindow)
-                    {
-                        this.Y += 1*dt*this.speed;
-                    }
-                }
-           }
+            this.Y += dt*this.speed;
             
+       }
+
+       let margebottom =  MaxMapHeight-(( HeightWindow - map.shadowCubeHeight)/2) ;
+       
+       if(heroY >= map.shadowCubeY+map.shadowCubeHeight-this.heroSprite.height && this.Y <= margebottom )
+       {
+            this.heroSprite.cameraY -= dt*this.speed;
+            map.cameraY -= dt*this.speed;
        }
 
     }
@@ -133,11 +96,13 @@ class hero{
     {
         this.heroSprite.draw(ctx);
 
-    }
-    //============ debug ======================    
-    //     ctx.font = "18px serif";
-    //     ctx.fillStyle = 'rgb(255, 255, 255)';
-    //     ctx.fillText('heroX '+this.X,20,20);
-    //     ctx.fillText('heroY '+this.Y,20,50);
-    // }  
+    
+    // ============ debug ======================    
+
+        // ctx.font = "18px serif";
+        // ctx.fillStyle = 'rgb(255, 255, 255)';
+        // ctx.fillText('heroX '+Math.round(this.X),20,20);
+        // ctx.fillText('heroY '+Math.round(this.Y),20,50);
+        // ctx.fillText('heroscreenY '+ Math.round(this.Y+this.heroSprite.cameraY),20,100);
+    }  
 }

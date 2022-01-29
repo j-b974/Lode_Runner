@@ -13,6 +13,10 @@ class sprite{
             height:0
 
         };
+
+        this.cameraX = 0;
+        this.cameraY = 0;
+
         this.height = pimg.height;
         this.width = pimg.width;
         this.loop = false;
@@ -104,7 +108,7 @@ class sprite{
     {
         if(!this.is_animate)
         {
-            ctx.drawImage(this.img , this.x , this.y);
+            ctx.drawImage(this.img , this.x + this.cameraX, this.y+this.cameraY);
         }else{
 
             let nbColumn = Math.floor(this.img.width/this.setFrame.width);
@@ -118,7 +122,7 @@ class sprite{
             let y = this.setFrame.height * row ;
 
 
-            ctx.drawImage(this.img , x , y ,this.setFrame.width, this.setFrame.height , this.x ,this.y , this.setFrame.width*this.scall , this.setFrame.height*this.scall);
+            ctx.drawImage(this.img , x , y ,this.setFrame.width, this.setFrame.height , this.x+this.cameraX ,this.y+this.cameraY , this.setFrame.width*this.scall , this.setFrame.height*this.scall);
         }
     }
 }

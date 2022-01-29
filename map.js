@@ -19,6 +19,12 @@ class map{
         this.MaxWidth= 1125; //TO DO à definir auto
         this.MaxHeight = 975; // TO DO à definir auto
 
+        this.positionMapX = 0;
+        this.positionMapY = 0;
+
+        this.cameraX = 0
+        this.cameraY = 0
+
         this.VX = 0;
         this.VY = 0;
 
@@ -46,7 +52,7 @@ class map{
     draw(ctx)
     {
 
-        ctx.drawImage(this.background ,  this.backgroundVX , this.backgroundVY);
+        ctx.drawImage(this.background ,  this.backgroundVX + this.cameraX , this.backgroundVY + this.cameraY);
 
 
         let x = 0;
@@ -66,7 +72,7 @@ class map{
 
                 let tuille = ligne.substring(c,c+1);
                 if( tuille != "0"){
-                ctx.drawImage(this.lstTuille[tuille],x+this.X,y+this.Y);
+                ctx.drawImage(this.lstTuille[tuille],x+this.cameraX,y+this.cameraY);
                 }       
             }
             y+= 75;
