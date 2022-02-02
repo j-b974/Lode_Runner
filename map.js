@@ -10,13 +10,24 @@ class map{
      */
     constructor (backgroundImg, lstTuille , map)
     {
+        /**
+         * @var {[img]}
+         * @description tableau img index ex [0 => null ,h => imgH, p => imgp]
+         */
         this.lstTuille = lstTuille;
+
+        /**
+         * @var {[string]}
+         */
         this.map  = map;
+
         this.background = backgroundImg;
         this.X = 0 ;
         this.Y = 0 ;
 
-        this.MaxWidth= 1125; //TO DO à definir auto
+
+
+        this.MaxWidth= 1200; //TO DO à definir auto
         this.MaxHeight = 975; // TO DO à definir auto
 
         this.positionMapX = 0;
@@ -27,6 +38,9 @@ class map{
 
         this.VX = 0;
         this.VY = 0;
+
+        this.tuilleWidth = 75;
+        this.tuilleHeight = 75;
 
        
         this.shadowCubeWidth = WidthWindow/2;
@@ -39,6 +53,62 @@ class map{
         this.distanceX = 0;
         this.distanceY = 0;
         this.deplaceMax = 50;
+    }
+
+    /**
+     * 
+     * @param {string} index 
+     * @description verifie si la index est bien dans 
+     * @returns {boolean}
+     */
+    is_drawable(index)
+    {
+        return this.lstTuille[index] == undefined ? false : true ; 
+    }
+
+    createSprite(ctx,  id , px , py)
+    {
+        if(id == "e")
+        {
+            ctx.save();
+            ctx.fillStyle = 'rgb(105, 205, 6)';
+            ctx.fillRect( px, py, 75 , 75);
+            ctx.restore();
+        }
+    }
+    is_solide(pid)
+    {
+        if(pid == "h"){return true;}
+        return false;
+    }
+
+
+    getTuilleId(px , py)
+    {
+        let col = Math.floor(px / this.tuilleWidth);
+
+        let row = Math.floor(py / this.tuilleHeight);
+
+        let nbMaxcol = this.map[row].length;
+      
+        let nbMaxrow =this.map.length-1 ;
+
+  
+        
+        if(col >= 0 && col <= nbMaxcol && row > 0 && row <= nbMaxrow)
+        {
+            // console.log("col "+ col);
+            // console.log("row "+row);
+            // console.log("le col map : "+this.map[row].substring(col , col+1));
+            return this.map[row].substring(col , col+1);
+            
+        }
+        else
+        {
+            //  console.log("erreur dans getTuilleId !!!!");
+            return "0";
+        }
+
     }
 
 
@@ -71,9 +141,13 @@ class map{
                 x = 75 * c;
 
                 let tuille = ligne.substring(c,c+1);
-                if( tuille != "0"){
-                ctx.drawImage(this.lstTuille[tuille],x+this.cameraX,y+this.cameraY);
-                }       
+                if(this.is_drawable(tuille))
+                {
+                     ctx.drawImage(this.lstTuille[tuille],x+this.cameraX,y+this.cameraY);
+                }else{
+                    this.createSprite( ctx ,tuille , x+this.cameraX , y+this.cameraY )
+                }
+       
             }
             y+= 75;
 

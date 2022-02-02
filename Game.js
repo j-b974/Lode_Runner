@@ -4,23 +4,21 @@ let lstScene = [];
 let lstSprite =[];
 
 let map1 = [
-    'h0hhhhhhhhhhhhh',
-    '00000000000000h',
-    '000hhhh00000hhh',
-    '00000000000000h',
-    '00000000000000h',
-    '000000hhhhh000h',
-    '00000000000000h',
-    'h0hhhhhhhhhhhhh',
-    '00000000000000h',
-    '00000000000000h',
-    '000000hhhhh000h',
-    '00000000000000h',
-    'h0hhhhhhhhhhhhh',
+    'h0ehhhhhhhhhhhhh',
+    'h0e000000000000h',
+    'h0e0hehh00000hhH',
+    'h0e00e000000000h',
+    'h0e00e000000000h',
+    'h0e00e0hhhhh000h',
+    'h0e00e000e00000h',
+    'hhhhhhhhhehhhhhh',
+    'h00000000e00000h',
+    'h00000000e00000h',
+    'h000000hhhhh000h',
+    'h00000000000000h',
+    'hhhhhhhhhhhhhhhh',
 
 ];
-
-let Level = null;
 
 let ImgLevel = [];
 
@@ -79,8 +77,9 @@ function Game_load()
     let imgforet = new Image();
     imgforet.src = "./img/foret.jpg";
 
-    Level = new map(imgforet , ImgLevel , map1);
+    let levelmap = new map(imgforet , ImgLevel , map1);
 
+    STORE.addStorageIteme('MAP', levelmap)
 
     // ============ hero ================
 
@@ -103,14 +102,14 @@ function Game_update(dt)
 
     });
     
-    Hero.update(dt,Level);
-    Level.update(dt);
+    Hero.update(dt);
+    STORE.getIteme('MAP').update(dt);
 
 }
 function Game_draw(ctx)
 {
 
-    Level.draw(ctx);
+    STORE.getIteme('MAP').draw(ctx);
 
     lstSprite.forEach((sprite)=>
     {
