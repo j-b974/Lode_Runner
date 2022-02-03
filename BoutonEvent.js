@@ -8,7 +8,7 @@ class BoutonEvent{
         this.state = [];
         this.oldState = [];
 
-        this.pressable = ['ArrowUp','ArrowRight','ArrowDown','ArrowLeft'];
+        this.pressable = ['ArrowUp','ArrowRight','ArrowDown','ArrowLeft','Space'];
 
     }
 
@@ -61,13 +61,42 @@ class BoutonEvent{
 
     get_state(pkey)
     {
-        return this.state[pkey] == null ? false : this.state[pkey];
+        return this.state[pkey] == null ? false : this.state[pkey]  
     }
+    get_oldstate(pkey)
+    {
+        return this.oldState[pkey] == null ? false : this.oldState[pkey];
+    }
+
 
     is_Pressed(pkey)
     {
         return this.get_state(pkey);
     }
 
+    /**
+     * 
+     * @param {string} pkey doit etre comprise dans this.pressable
+     * 
+     * @description verifie que le touche a était relacher 1 fois
+     * 
+     * @returns {boolean}
+     */
+    is_Release(pkey)
+    {
+        if( this.get_oldstate(pkey) == true && this.get_state(pkey) == false)
+        {
+            this.initState(pkey);
+            
+            return true;
+        }
+        return false;
+    }
+
+    initState(pkey)
+    {
+        delete this.state[pkey];
+        delete this.oldState[pkey];
+    }
 
 }
