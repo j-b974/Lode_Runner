@@ -5,14 +5,17 @@ class SceneLevel1{
         this.lstSprite = [];
 
         this.Hero = null;
+
+        /**
+         * @var {[]} string creation de sprite 
+         */
+        this.idSprite = ['t'];
     }
     load()
     {
+        this.loadSprite(map1);
 
-        let img2 = new Image();
-        img2.src = "./img/tresor.png";
-        let tresor = new sprite(img2);
-        tresor.x = 150;
+
     
         let img3 = new Image();
         img3.src = "./img/squelette.png";
@@ -22,7 +25,6 @@ class SceneLevel1{
         squelette.StartAnimation('run');
         squelette.x = 250;
         
-        this.lstSprite.push(tresor);
         this.lstSprite.push(squelette);
     
         // ====================================
@@ -31,6 +33,7 @@ class SceneLevel1{
         let herb = new Image();
         herb.src ="./img/herbe_tuille.png";
     
+        let ImgLevel = [];
         ImgLevel['h']= herb;
     
         let imgforet = new Image();
@@ -50,9 +53,47 @@ class SceneLevel1{
     
         this.Hero = new hero(vic);
     }
-    creationSprite(pid)
-    {
 
+    is_Sprite(pid)
+    {
+        return this.idSprite.find((value)=>{return value == pid});
+    }
+
+    loadSprite(pmap)
+    {
+       for (let L = 0; L < pmap.length; L++) {
+
+           let row = pmap[L];
+
+           let nbcol = row.length;
+
+           for (let C = 0; C < nbcol; C++)
+            {
+               let id = row.substring(C,C+1);
+               
+                if(this.is_Sprite(id))
+                {    
+                    let sprite = this.creationSprite(id , L , C);
+
+                    this.lstSprite.push(sprite);
+                }
+
+            }
+       }
+
+    }
+    creationSprite(pid , prow , pcol)
+    {
+        let loader = STORE.getIteme('LOADEUR');
+
+        if(pid == 't')
+        {
+            let tresor = new sprite(loader.getImage('t'));
+            tresor.x = pcol * 75;
+            tresor.y = (prow *75)+33;
+
+            return tresor;
+        }
     }
     update(dt)
     {

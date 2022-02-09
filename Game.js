@@ -4,27 +4,22 @@
 
 let map1 = [
     'h0ehhhhhhhhhhhhh',
-    'h0e000000000000h',
-    'h0e0hehh00000hhH',
+    'h0e0000t00000M0h',
+    'h0e0hehh00000hhh',
     'h0e00e000000000h',
     'h0e00e000000000h',
     'h0e00e0hhhhh000h',
-    'h0e00e000e00000h',
+    'h0e00e000e000M0h',
     'hhhhhhhhhehhhhhh',
     'h00000000e00000h',
     'h00000000e00000h',
     'h000000hhhhh000h',
-    'h00000000000000h',
+    'h0t0000000M0000h',
     'hhhhhhhhhhhhhhhh',
 
 ];
 
-let ImgLevel = [];
-
 const STORE = new Storage();
-
-let Hero = null;
-
 
 function Btnpress(even)
 {
@@ -35,10 +30,6 @@ function Btnrelache(even)
 {
     let supported = STORE.getIteme("BTN_EVENT").btnRelease(even.code);
     if(supported){ even.preventDefault();}
-}
-function ChangeScene()
-{
-
 }
 
 function Game_load()

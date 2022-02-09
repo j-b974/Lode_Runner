@@ -92,9 +92,9 @@ class hero{
 
        if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowUp") && this.Y >= 0 && (this.is_Gripable(0,1) || this.is_Gripable(0,0)) && this.VY ==0)
        {
-           this.heroSprite.StartAnimation('grimp');
+            this.heroSprite.StartAnimation('grimp');
 
-           this.VX = 0;
+            this.VX = 0;
             this.Y -= 1*dt*this.speed;
             this.dist = 0;
        }
