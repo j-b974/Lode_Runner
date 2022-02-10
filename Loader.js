@@ -29,12 +29,13 @@ class Loader{
                 let img = new Image();
                 
                 img.src = path;
+                
                 setTimeout(()=>{
                     
                   
                     img.onload = resolve(img);
                     
-                },2000)
+                },1000)
     
             }).then((value)=>{
     

@@ -61,7 +61,7 @@ class BoutonEvent{
 
     get_state(pkey)
     {
-        return this.state[pkey] == null ? false : this.state[pkey]  
+        return this.state[pkey] == null ? false : this.state[pkey];  
     }
     get_oldstate(pkey)
     {
