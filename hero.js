@@ -62,11 +62,11 @@ class hero{
 
     is_Gripable(pxOff , pyOff)
     {
-        return 'e' == this.heroTuille(pxOff,pyOff);
+        return 'e'== this.heroTuille(pxOff,pyOff);
     }
     is_fallable(pxOff ,pyOff)
     {
-        return '0'== this.heroTuille(pxOff,pyOff);
+        return ('0'== this.heroTuille(pxOff,pyOff));
     }
     is_wall(pxOff , pyOff)
     {
@@ -98,7 +98,7 @@ class hero{
         {
             this.ReplaceHero();
 
-            if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowRight"))
+            if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowRight")&& !this.is_wall(1,0) && !this.is_fallable(0,1))
             {
                 this.heroSprite.StartAnimation('runRight');
                      
@@ -106,7 +106,7 @@ class hero{
                 this.moving=true;
             }
 
-            else if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowLeft") )
+            else if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowLeft")&& !this.is_wall(-1,0) &&!this.is_fallable(0,1) )
             {
                 this.heroSprite.StartAnimation('runLeft');
      
@@ -114,7 +114,7 @@ class hero{
                  this.moving = true;
             }
 
-            else if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowUp") )
+            else if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowUp") && this.is_Gripable(0,0) && !this.is_wall(0,-1))
             {
                 this.heroSprite.StartAnimation('grimp');
      
@@ -123,7 +123,7 @@ class hero{
                 
             }
 
-            else if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowDown"))
+            else if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowDown") && (this.is_Gripable(0,0)||this.is_Gripable(0,1)) && !this.is_wall(0,1))
             {
                  this.heroSprite.StartAnimation('grimp');
 
@@ -131,6 +131,12 @@ class hero{
                 this.moving = true;
             }
 
+            if(this.is_fallable(0,1))
+            {
+                
+                this.rowMove++;
+                this.moving = true;
+            }
   
 
         }

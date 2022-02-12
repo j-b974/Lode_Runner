@@ -10,11 +10,11 @@ let map1 = [
     'h0e00e000000000h',
     'h0e00e0hhhhh000h',
     'h0e00e000e000M0h',
-    'hhhhhhhhhehhhhhh',
-    'h00000000e00000h',
-    'h00000000e00000h',
-    'h000000hhhhh000h',
-    'h0t0000000M0000h',
+    'hhhhhhhhhehhhheh',
+    'h00000000e0000eh',
+    'h00000000e0000eh',
+    'h000000hhhhh00eh',
+    'h0t0000000M000eh',
     'hhhhhhhhhhhhhhhh',
 
 ];
