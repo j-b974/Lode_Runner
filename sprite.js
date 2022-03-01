@@ -4,8 +4,8 @@ class sprite{
     {
 
         this.img = pimg;
-        this.x = 50;
-        this.y = 50;
+        this.x = 0;
+        this.y = 0;
         this.is_animate = false;
         this.scall = 1;
         this.setFrame = {
@@ -78,8 +78,7 @@ class sprite{
     {
 
         if(this.currentAnimation != null)
-        {
-            
+        { 
             this.timer += dt;
             if(this.timer >= this.currentAnimation.duration)
             {
@@ -101,7 +100,6 @@ class sprite{
                 }
                 this.currentFrame = this.currentAnimation.lstFrame[this.currentUpFrame];
             }
-
         }
     }
     draw(ctx)

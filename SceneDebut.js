@@ -9,8 +9,8 @@ class SceneDebut{
     {
         this.loading = true; 
         let loadeur = new Loader();
-        loadeur.addPath('t','./img/tresor.png');
         loadeur.addPath('M','./img/squelette.png');
+        loadeur.addPath('t','./img/tresor.png');
         STORE.addStorageIteme('LOADEUR',loadeur);
         loadeur.start(this.playGame);
         

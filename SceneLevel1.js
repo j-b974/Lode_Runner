@@ -9,32 +9,22 @@ class SceneLevel1{
         /**
          * @var {[]} string creation de sprite 
          */
-        this.idSprite = ['t'];
+        this.idSprite = ['t','M'];
     }
     load()
     {
         this.loadSprite(map1);
 
-
-    
-        let img3 = new Image();
-        img3.src = "./img/squelette.png";
-        let squelette = new sprite(img3);
-        squelette.setAnimation(110,127);
-        squelette.addAnimation('run',[1,2,3,5],0.2,true);
-        squelette.StartAnimation('run');
-        squelette.x = 250;
-        
-        this.lstSprite.push(squelette);
-    
-        // ====================================
-    
         // ========== map =================
         let herb = new Image();
         herb.src ="./img/herbe_tuille.png";
+
+        let echel = new Image();
+        echel.src="./img/echel_Foureges.png";
     
         let ImgLevel = [];
         ImgLevel['h']= herb;
+        ImgLevel['e']=echel;
     
         let imgforet = new Image();
         imgforet.src = "./img/foret.jpg";
@@ -73,7 +63,7 @@ class SceneLevel1{
                
                 if(this.is_Sprite(id))
                 {    
-                    let sprite = this.creationSprite(id , L , C);
+                    let sprite = this.creationSprite(id , C+1, L+1);
 
                     this.lstSprite.push(sprite);
                 }
@@ -82,18 +72,25 @@ class SceneLevel1{
        }
 
     }
-    creationSprite(pid , prow , pcol)
+    creationSprite(pid , pcol , prow)
     {
         let loader = STORE.getIteme('LOADEUR');
+        let sprite = null;
 
         if(pid == 't')
         {
-            let tresor = new sprite(loader.getImage('t'));
-            tresor.x = pcol * 75;
-            tresor.y = (prow *75)+33;
+            
+            sprite = new Treasure(loader.getImage(pid),pcol , prow);
 
-            return tresor;
+            
         }
+        if(pid =='M')
+        {
+            sprite = new Monstre(loader.getImage(pid),pcol , prow)
+
+        }
+
+        return sprite;
     }
     update(dt)
     {

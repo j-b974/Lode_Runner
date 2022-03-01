@@ -66,7 +66,7 @@ class hero{
     }
     is_fallable(pxOff ,pyOff)
     {
-        return ('0'== this.heroTuille(pxOff,pyOff));
+        return ('0'== this.heroTuille(pxOff,pyOff)|| 't' == this.heroTuille(pxOff,pyOff));
     }
     is_wall(pxOff , pyOff)
     {

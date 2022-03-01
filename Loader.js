@@ -39,8 +39,8 @@ class Loader{
     
             }).then((value)=>{
     
-                this.charge();
                 this.listLoaded[name] = value;
+                this.charge();
             })
             
             

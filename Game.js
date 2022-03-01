@@ -1,25 +1,22 @@
-
-
-
-
+console.log("game chargé !!!")
 let map1 = [
     'h0ehhhhhhhhhhhhh',
-    'h0e0000t00000M0h',
+    'h0e0t00000000Mth',
     'h0e0hehh00000hhh',
     'h0e00e000000000h',
-    'h0e00e000000000h',
+    'h0e00e00M000000h',
     'h0e00e0hhhhh000h',
     'h0e00e000e000M0h',
     'hhhhhhhhhehhhheh',
     'h00000000e0000eh',
-    'h00000000e0000eh',
+    'h00000000eM000eh',
     'h000000hhhhh00eh',
-    'h0t0000000M000eh',
+    'h0t0000000M0t0eh',
     'hhhhhhhhhhhhhhhh',
 
 ];
 
-const STORE = new Storage();
+let STORE = null;
 
 function Btnpress(even)
 {
@@ -34,6 +31,8 @@ function Btnrelache(even)
 
 function Game_load()
 {
+
+    STORE = new Storage();
 
     document.addEventListener("keydown",Btnpress,false);
     document.addEventListener("keyup",Btnrelache,false);

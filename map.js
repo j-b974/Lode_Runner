@@ -68,7 +68,7 @@ class map{
 
     createSprite(ctx,  id , px , py)
     {
-        if(id == "e")
+        if(id == " ")
         {
             ctx.save();
             ctx.fillStyle = 'rgb(105, 205, 6)';
