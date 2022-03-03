@@ -39,9 +39,7 @@ class SceneLevel1{
         let img = new Image();
         img.src ="./img/vic.png";
     
-        let vic = new sprite(img)
-    
-        this.Hero = new hero(vic);
+        this.Hero = new hero(img);
     }
 
     is_Sprite(pid)

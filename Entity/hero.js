@@ -1,12 +1,9 @@
-class hero{
+class hero extends Mortel{
 
     constructor(heroSprite)
     {
-        this.heroSprite = heroSprite;
-        this.X = heroSprite.x = 0;
-        this.Y = heroSprite.y = 0;
-        this.heroSprite.width=75; // TO DO  à definir auto
-        this.heroSprite.height=74;
+        super(heroSprite);
+
         this.speed = 300;
         this.animation();
 
@@ -20,8 +17,7 @@ class hero{
         this.colMove = 3;
         this.rowMove = 2;
         this.loadPosition();
-        this.VX = 0;
-        this.VY = 0;
+ 
 
         this.moving = false;
     }
@@ -33,11 +29,11 @@ class hero{
     }
     animation()
     {
-        this.heroSprite.setAnimation(75, 74);
-        this.heroSprite.addAnimation('runRight',[0,1,2,3],0.2 , true);
-        this.heroSprite.addAnimation('grimp',[4,5], 0.2,true)
-        this.heroSprite.addAnimation('runLeft', [8,9,10,11],0.2,true)
-        this.heroSprite.StartAnimation('runLeft');
+        this.setAnimation(75, 74);
+        this.addAnimation('runRight',[0,1,2,3],0.2 , true);
+        this.addAnimation('grimp',[4,5], 0.2,true)
+        this.addAnimation('runLeft', [8,9,10,11],0.2,true)
+        this.StartAnimation('runLeft');
 
     }
     /**
@@ -51,8 +47,8 @@ class hero{
     {
         let map = STORE.getIteme("MAP");
 
-        let x = (this.X + (this.heroSprite.width *0.5) ) + (map.tuilleWidth * pxOff);
-        let y = (this.Y+ (this.heroSprite.height)*0.3)+ (map.tuilleHeight*pyOff) ;
+        let x = (this.x + (this.width *0.5) ) + (map.tuilleWidth * pxOff);
+        let y = (this.y+ (this.height)*0.3)+ (map.tuilleHeight*pyOff) ;
          
         let index =  map.getTuilleId( x, y);
         
@@ -72,11 +68,12 @@ class hero{
     {
         return 'h'== this.heroTuille(pxOff , pyOff);
     }
+
     ReplaceHero()
     {
         let map = STORE.getIteme("MAP");
-        this.X = (this.colHero-1)*map.tuilleWidth ;
-        this.Y = (this.rowHero-1)*map.tuilleHeight;
+        this.x = (this.colHero-1)*map.tuilleWidth ;
+        this.y = (this.rowHero-1)*map.tuilleHeight;
     }
 
 
@@ -84,15 +81,14 @@ class hero{
     {
         let map = STORE.getIteme("MAP");
 
-        this.heroSprite.update(dt);
-        this.heroSprite.x = this.X ;
-        this.heroSprite.y = this.Y ;
+        super.update(dt);
+
         let MaxMapWidth = map.MaxWidth;
         let MaxMapHeight = map.MaxHeight;
 
 
-        let heroX = this.X + this.heroSprite.cameraX;
-        let heroY = this.Y + this.heroSprite.cameraY;
+        let heroX = this.x + this.cameraX;
+        let heroY = this.y + this.cameraY;
 
         if(!this.moving)
         {
@@ -100,7 +96,7 @@ class hero{
 
             if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowRight")&& !this.is_wall(1,0) && !this.is_fallable(0,1))
             {
-                this.heroSprite.StartAnimation('runRight');
+                this.StartAnimation('runRight');
                      
                 this.colMove++;
                 this.moving=true;
@@ -108,7 +104,7 @@ class hero{
 
             else if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowLeft")&& !this.is_wall(-1,0) &&!this.is_fallable(0,1) )
             {
-                this.heroSprite.StartAnimation('runLeft');
+                this.StartAnimation('runLeft');
      
                  this.colMove--;
                  this.moving = true;
@@ -116,7 +112,7 @@ class hero{
 
             else if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowUp") && this.is_Gripable(0,0) && !this.is_wall(0,-1))
             {
-                this.heroSprite.StartAnimation('grimp');
+                this.StartAnimation('grimp');
      
                 this.rowMove--;
                 this.moving = true;
@@ -125,7 +121,7 @@ class hero{
 
             else if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowDown") && (this.is_Gripable(0,0)||this.is_Gripable(0,1)) && !this.is_wall(0,1))
             {
-                 this.heroSprite.StartAnimation('grimp');
+                 this.StartAnimation('grimp');
 
                 this.rowMove++;
                 this.moving = true;
@@ -145,8 +141,8 @@ class hero{
         {
             if(this.colMove > this.colHero)
             {
-                this.X += this.speed*dt;
-                if(Math.floor(this.X/map.tuilleWidth)+1>= this.colMove)
+                this.x += this.speed*dt;
+                if(Math.floor(this.x/map.tuilleWidth)+1>= this.colMove)
                 {
                     this.colHero = this.colMove;
                     this.moving = false;
@@ -154,8 +150,8 @@ class hero{
             }
             if(this.colMove < this.colHero)
             {
-                this.X -= this.speed*dt;
-                let some = Math.floor( this.X / map.tuilleWidth ) + 1;
+                this.x -= this.speed*dt;
+                let some = Math.floor( this.x / map.tuilleWidth ) + 1;
                 if( some < this.colMove)
                 {
                     this.colHero = this.colMove;
@@ -164,16 +160,16 @@ class hero{
             } 
             if(this.rowMove > this.rowHero)
             {
-                this.Y += this.speed*dt;
-                if(Math.floor(this.Y/map.tuilleWidth)+1 >= this.rowMove)
+                this.y += this.speed*dt;
+                if(Math.floor(this.y/map.tuilleWidth)+1 >= this.rowMove)
                 {
                     this.rowHero = this.rowMove;
                     this.moving = false;
                 }
             } if(this.rowMove < this.rowHero)
             {
-                this.Y -= this.speed*dt;
-                if(Math.floor(this.Y/map.tuilleWidth)+1< this.rowMove)
+                this.y -= this.speed*dt;
+                if(Math.floor(this.y/map.tuilleWidth)+1< this.rowMove)
                 {
                     this.rowHero = this.rowMove;
                     this.moving = false;
@@ -186,25 +182,25 @@ class hero{
 
 
             // ============ deplacement ecran vers la gauche limité a la map ===============
-       if( heroX <= map.shadowCubeX && this.X >= map.shadowCubeX)
+       if( heroX <= map.shadowCubeX && this.x >= map.shadowCubeX)
        {  
-           this.heroSprite.cameraX += dt*this.speed;
+           this.cameraX += dt*this.speed;
            map.cameraX += dt*this.speed;
        }
 
         // ============ deplacement ecran vers la droite limité a la map ===============
-        let margeRight = MaxMapWidth -  (WidthWindow -(map.shadowCubeX+map.shadowCubeWidth)+this.heroSprite.width);
+        let margeRight = MaxMapWidth -  (WidthWindow -(map.shadowCubeX+map.shadowCubeWidth)+this.setFrame.width);
 
-        if(heroX > map.shadowCubeX+map.shadowCubeWidth-this.heroSprite.width && this.X < margeRight)
+        if(heroX > map.shadowCubeX+map.shadowCubeWidth - this.setFrame.width && this.x < margeRight)
         {
-            this.heroSprite.cameraX -= dt*this.speed;
+            this.cameraX -= dt*this.speed;
             map.cameraX -= dt*this.speed;
         }
 
         // ============ deplacement ecran vers le Haut limité a la map ===============
-       if(heroY <= map.shadowCubeY && this.Y >= map.shadowCubeY)
+       if(heroY <= map.shadowCubeY && this.y >= map.shadowCubeY)
        {
-           this.heroSprite.cameraY += dt*this.speed;
+           this.cameraY += dt*this.speed;
            map.cameraY += dt*this.speed;
        }
 
@@ -212,9 +208,9 @@ class hero{
 
        let margebottom =  MaxMapHeight-(( HeightWindow - map.shadowCubeHeight)/2) ;
        
-       if(heroY > map.shadowCubeY+map.shadowCubeHeight-this.heroSprite.height && this.Y <= margebottom )
+       if(heroY > map.shadowCubeY+map.shadowCubeHeight-this.setFrame.height && this.y <= margebottom )
        {
-            this.heroSprite.cameraY -= dt*this.speed;
+            this.cameraY -= dt*this.speed;
             map.cameraY -= dt*this.speed;
        }
 
@@ -222,16 +218,17 @@ class hero{
     }
     draw(ctx)
     {
-        this.heroSprite.draw(ctx);
+        
+        super.draw(ctx);
 
     
     // ============ debug ======================    
 
          ctx.font = "28px serif";
          ctx.fillStyle = 'rgb(255, 255, 255)';
-         ctx.fillText('heroX '+Math.round(this.X),20,20);
-         ctx.fillText('heroY '+Math.round(this.Y),20,50);
+         ctx.fillText('heroX '+Math.round(this.x),20,20);
+         ctx.fillText('heroY '+Math.round(this.y),20,50);
    
-        // ctx.fillText('heroscreenY '+ Math.round(this.Y+this.heroSprite.cameraY),20,100);
+        // ctx.fillText('heroscreenY '+ Math.round(this.Y+this.cameraY),20,100);
     }  
 }
