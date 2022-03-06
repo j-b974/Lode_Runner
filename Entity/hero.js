@@ -18,6 +18,7 @@ class hero extends Mortel{
         this.rowMove = 2;
         this.loadPosition();
  
+        this.treasureColleted = 0;
 
         this.moving = false;
     }
@@ -76,6 +77,64 @@ class hero extends Mortel{
         this.y = (this.rowHero-1)*map.tuilleHeight;
     }
 
+    /**
+     * parcourt la liste des sprite pour déterminer la position des trésors
+     */
+    is_treasure(pxOff,pyOff)
+    {
+      
+        let lstSprite = STORE.getIteme("LST_SPRITE");
+        for (const key in lstSprite) {
+            
+              let sprite = lstSprite[key];
+            if(sprite instanceof Treasure)
+            {
+                if(sprite.colMortel == (this.colHero+(pxOff) )&& sprite.rowMortel == (this.rowHero+(pyOff)) )
+                {
+                    return true;
+                }
+            }
+            
+        }
+        // return 't'== this.heroTuille(pxOff,pyOff);
+        return false;
+    }
+
+    /**
+     * @description surpression du tresor de la liste des sprite
+     */
+    collect_treasure(pxOff, pyOff)
+    {
+        let lstsprite = STORE.getIteme('LST_SPRITE');
+
+        for (const element in lstsprite) {
+           
+            let mortel = lstsprite[element];
+       
+            if(mortel instanceof Treasure)
+            {
+                if((this.colHero+(pxOff)) == mortel.colMortel && (this.rowHero+(pyOff)) == mortel.rowMortel)
+                {
+                    let index = lstsprite.indexOf(mortel);
+
+                    if(index != -1)
+                    {
+                        lstsprite.splice(index , 1);
+
+                        this.treasureColleted++;
+                    }
+                }
+
+            }
+                
+           
+        }
+        
+            
+
+       
+    }
+
 
     update(dt) // TO DO utiliser storage locato //  TO DO rendre cette partie réutilisatble
     {
@@ -132,6 +191,10 @@ class hero extends Mortel{
                 
                 this.rowMove++;
                 this.moving = true;
+            }
+            if(this.is_treasure(0,0))
+            {
+                this.collect_treasure(0 ,0);
             }
   
 
@@ -228,6 +291,8 @@ class hero extends Mortel{
          ctx.fillStyle = 'rgb(255, 255, 255)';
          ctx.fillText('heroX '+Math.round(this.x),20,20);
          ctx.fillText('heroY '+Math.round(this.y),20,50);
+         ctx.fillText('tresor ramasser '+this.treasureColleted,20,80);
+
    
         // ctx.fillText('heroscreenY '+ Math.round(this.Y+this.cameraY),20,100);
     }  

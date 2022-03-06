@@ -153,7 +153,7 @@ class map{
 
         }
 
-        //============ debug voir le shadowCube ======================  
+        //============ debug voir le shadqowCube ======================  
 
         // ctx.globalAlpha = 0.45;
         // ctx.fillStyle = 'rgb(0, 0, 0)';

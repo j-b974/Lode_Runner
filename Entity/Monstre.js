@@ -4,7 +4,6 @@ class Monstre extends Mortel{
     {
         super(pimg, pcol , prow-1);
        
-
         this.setMonstreAnimation();
 
     }

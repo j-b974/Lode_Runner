@@ -64,10 +64,13 @@ class SceneLevel1{
                     let sprite = this.creationSprite(id , C+1, L+1);
 
                     this.lstSprite.push(sprite);
+
                 }
 
             }
        }
+
+       STORE.addStorageIteme('LST_SPRITE', this.lstSprite);
 
     }
     creationSprite(pid , pcol , prow)
