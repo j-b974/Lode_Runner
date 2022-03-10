@@ -1,4 +1,4 @@
-class Treasure extends Mortel{
+class Treasure extends Contingent{
     constructor(pimg, pCol , pRow)
     {
         super(pimg , pCol , pRow)
@@ -11,7 +11,7 @@ class Treasure extends Mortel{
 
         let map = STORE.getIteme('MAP');
 
-        this.ReplaceMortel();
+        this.ReplaceContingent();
 
 
     }

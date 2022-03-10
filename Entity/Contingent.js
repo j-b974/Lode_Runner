@@ -1,7 +1,7 @@
-class Mortel extends sprite
+class Contingent extends sprite
 {
     /**
-     * 
+     * contingent
      * @param {image} pimg 
      * @param {int} pcol nb en colone x sur la map 
      * @param {int} prow nb en ligne y sur la map
@@ -13,18 +13,18 @@ class Mortel extends sprite
          */
         super(pimg);
 
-        this.colMortel = pcol;
+        this.colContingent = pcol;
 
-        this.rowMortel = prow;
+        this.rowContingent = prow;
 
     }
 
-    ReplaceMortel()
+    ReplaceContingent()
     {
         let map = STORE.getIteme("MAP");
 
-        this.x = (this.colMortel-1)*map.tuilleWidth ;
-        this.y = ((this.rowMortel)*map.tuilleHeight)-33;
+        this.x = (this.colContingent-1)*map.tuilleWidth ;
+        this.y = ((this.rowContingent)*map.tuilleHeight)-33;
     }
 
     update(dt)

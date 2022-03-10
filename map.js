@@ -25,7 +25,9 @@ class map{
         this.X = 0 ;
         this.Y = 0 ;
 
-
+        this.lstTuilleMap = STORE.getIteme('LOADEUR').getImage('lstMap');
+        this.TuilleList = [];
+        this.creationTuileLst();
 
         this.MaxWidth= 1200; //TO DO à definir auto
         this.MaxHeight = 975; // TO DO à definir auto
@@ -53,6 +55,16 @@ class map{
         this.distanceX = 0;
         this.distanceY = 0;
         this.deplaceMax = 50;
+
+        //================== pour creuser =========
+
+        this.AlphaTuille = []; // pour rendre tuille transparent
+
+        this.setAphaTuile();
+        // this.AlphaTuille[7][2] = 0;
+
+
+        
     }
 
     /**
@@ -63,7 +75,8 @@ class map{
      */
     is_drawable(index)
     {
-        return this.lstTuille[index] == undefined ? false : true ; 
+        // return this.lstTuille[index] == undefined ? false : true ;
+        return this.TuilleList[index] == undefined ? false : true ;
     }
 
     createSprite(ctx,  id , px , py)
@@ -74,14 +87,28 @@ class map{
             ctx.fillStyle = 'rgb(105, 205, 6)';
             ctx.fillRect( px, py, 75 , 75);
             ctx.restore();
+        }else{
+
+            // console.log("erreur dans la map ; creationSprte !!");
         }
     }
-    is_solide(pid)
+    setAphaTuile()
     {
-        if(pid == "h"){return true;}
-        return false;
-    }
+        this.AlphaTuille = [];
+        for (let l = 0; l < this.map.length; l++) {
+            
+            let c  = this.map[l].length;
 
+            this.AlphaTuille[l]= [];
+
+            for (let c = 0; c < l ; c++) {
+               
+                this.AlphaTuille[l][c] = 100;
+                
+            }
+            
+        }
+    }
 
     getTuilleId(px , py)
     {
@@ -111,13 +138,35 @@ class map{
 
     }
 
-
     update(dt)
     {
         // this.VX += dt;
         // this.VY += dt
 
     }
+    creationTuileLst()
+    {
+        this.TuilleList['e'] = {
+            x : 0,
+            y : 150,
+            width: 75,
+            height: 75,
+        };
+        this.TuilleList['h'] = {
+            x :0,
+            y :0,
+            width: 75,
+            height: 75,
+        };
+        this.TuilleList['l']={
+            x:0,
+            y:75,
+            width:75,
+            height:75,
+        }
+
+    }
+
 
     draw(ctx)
     {
@@ -137,19 +186,29 @@ class map{
             x = 0;
 
             for (let c = 0; c < nbcol; c++) {
-
-                x = 75 * c;
+        
+                x = this.tuilleWidth * c;
 
                 let tuille = ligne.substring(c,c+1);
                 if(this.is_drawable(tuille))
                 {
-                     ctx.drawImage(this.lstTuille[tuille],x+this.cameraX,y+this.cameraY);
+                     ctx.save();
+                   
+                        ctx.globalAlpha = this.AlphaTuille[l][c]/100;
+                   
+
+                        //  ctx.drawImage(this.lstTuille[tuille],x+this.cameraX,y+this.cameraY);
+
+                        let tuilleDraw = this.TuilleList[tuille];
+                        ctx.drawImage(this.lstTuilleMap , tuilleDraw.x , tuilleDraw.y ,tuilleDraw.width, tuilleDraw.height , x+this.cameraX , y+this.cameraY ,this.tuilleWidth*1 , this.tuilleHeight*1);
+
+                     ctx.restore();
                 }else{
                     this.createSprite( ctx ,tuille , x+this.cameraX , y+this.cameraY )
                 }
-       
+    
             }
-            y+= 75;
+            y+= this.tuilleHeight;
 
         }
 

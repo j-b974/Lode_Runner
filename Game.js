@@ -1,7 +1,7 @@
 console.log("game chargé !!!")
 let map1 = [
     'h0ehhhhhhhhhhhhh',
-    'h0e0t00000000Mth',
+    'h0e0t000lllllMth',
     'h0e0hehh00000hhh',
     'h0e00e000000000h',
     'h0e00e00M000000h',

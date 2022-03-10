@@ -1,4 +1,4 @@
-class hero extends Mortel{
+class hero extends Contingent{
 
     constructor(heroSprite)
     {
@@ -21,7 +21,10 @@ class hero extends Mortel{
         this.treasureColleted = 0;
 
         this.moving = false;
+
+        this.lstHole = [];
     }
+
     loadPosition()
     {
         let map = STORE.getIteme("MAP");
@@ -89,7 +92,7 @@ class hero extends Mortel{
               let sprite = lstSprite[key];
             if(sprite instanceof Treasure)
             {
-                if(sprite.colMortel == (this.colHero+(pxOff) )&& sprite.rowMortel == (this.rowHero+(pyOff)) )
+                if(sprite.colContingent == (this.colHero+(pxOff) )&& sprite.rowContingent == (this.rowHero+(pyOff)) )
                 {
                     return true;
                 }
@@ -109,13 +112,13 @@ class hero extends Mortel{
 
         for (const element in lstsprite) {
            
-            let mortel = lstsprite[element];
+            let Contingent = lstsprite[element];
        
-            if(mortel instanceof Treasure)
+            if(Contingent instanceof Treasure)
             {
-                if((this.colHero+(pxOff)) == mortel.colMortel && (this.rowHero+(pyOff)) == mortel.rowMortel)
+                if((this.colHero+(pxOff)) == Contingent.colContingent && (this.rowHero+(pyOff)) == Contingent.rowContingent)
                 {
-                    let index = lstsprite.indexOf(mortel);
+                    let index = lstsprite.indexOf(Contingent);
 
                     if(index != -1)
                     {
@@ -132,6 +135,34 @@ class hero extends Mortel{
         
             
 
+       
+    }
+
+    is_hole(pxOff , pyOff)
+    {
+        let h =false;
+        this.lstHole.forEach(hole =>{
+            if(hole.colContingent == this.colHero+(pxOff) && hole.rowContingent == this.rowHero+(pyOff))
+            {
+               h =  true;
+            }
+            
+        })
+        return h;
+    }
+
+    heroCreuse(pcol , prow)
+    {
+        let alphaT = STORE.getIteme("MAP").AlphaTuille;
+        alphaT[prow][pcol]= 0;
+
+        let hole = new Creuser(STORE.getIteme("LOADEUR").getImage('lstMap'));
+        hole.rowContingent = prow;
+        hole.colContingent= pcol;
+        hole.x = (pcol)*75;
+        hole.y = (prow)*75;
+        
+        this.lstHole.push(hole);
        
     }
 
@@ -153,10 +184,22 @@ class hero extends Mortel{
         {
             this.ReplaceHero();
 
+            if(STORE.getIteme('BTN_EVENT').is_Release("KeyF"))
+            {
+                
+                if(this.is_wall(-1,1)){
+                   
+                     
+                    this.heroCreuse(this.colHero-2 , this.rowHero);
+                }
+                
+
+            }
+
             if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowRight")&& !this.is_wall(1,0) && !this.is_fallable(0,1))
             {
                 this.StartAnimation('runRight');
-                     
+              
                 this.colMove++;
                 this.moving=true;
             }
@@ -186,7 +229,7 @@ class hero extends Mortel{
                 this.moving = true;
             }
 
-            if(this.is_fallable(0,1))
+            if(this.is_fallable(0,1) || this.is_hole(-1 , 0))
             {
                 
                 this.rowMove++;
@@ -277,6 +320,18 @@ class hero extends Mortel{
             map.cameraY -= dt*this.speed;
        }
 
+       this.lstHole.forEach(sprite =>{
+           sprite.update(dt);
+       })
+
+       //================== liste des hole ==============
+
+       this.lstHole.forEach(creuse =>{
+
+        creuse.update(dt);
+        creuse.cameraX = map.cameraX;
+        creuse.cameraY = map.cameraY;
+    })
 
     }
     draw(ctx)
@@ -284,6 +339,9 @@ class hero extends Mortel{
         
         super.draw(ctx);
 
+        this.lstHole.forEach(sprite => {
+            sprite.draw(ctx);
+        });
     
     // ============ debug ======================    
 
