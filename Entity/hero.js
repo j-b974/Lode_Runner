@@ -72,6 +72,10 @@ class hero extends Contingent{
     {
         return 'h'== this.heroTuille(pxOff , pyOff);
     }
+    is_liane(pxOff, pyOff)
+    {
+        return 'l'== this.heroTuille(pxOff , pyOff);
+    }
 
     ReplaceHero()
     {
@@ -214,7 +218,7 @@ class hero extends Contingent{
 
             //================== commande pour Deplacer ==============
 
-            if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowRight")&& !this.is_wall(1,0) && !this.is_fallable(0,1))
+            if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowRight")&& !this.is_wall(1,0) && (!this.is_fallable(0,1)|| this.is_liane(0,0)))
             {
                 this.StartAnimation('runRight');
               
@@ -222,7 +226,7 @@ class hero extends Contingent{
                 this.moving=true;
             }
 
-            else if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowLeft")&& !this.is_wall(-1,0) &&!this.is_fallable(0,1) )
+            else if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowLeft")&& !this.is_wall(-1,0) && (!this.is_fallable(0,1)|| this.is_liane(0,0) ))
             {
                 this.StartAnimation('runLeft');
      
@@ -247,7 +251,7 @@ class hero extends Contingent{
                 this.moving = true;
             }
 
-            if(this.is_fallable(0,1) || this.is_hole(-1 , 0))
+            if((this.is_fallable(0,1) || this.is_hole(-1 , 0)) && !this.is_liane(0,0))
             {
                 
                 this.rowMove++;
