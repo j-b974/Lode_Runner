@@ -25,6 +25,7 @@ class sprite{
         this.currentAnimation = null;
         this.currentUpFrame = 0;
         this.timer = 0;
+        
 
     }
     setAnimation(pwidth , pheight )

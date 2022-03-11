@@ -163,6 +163,7 @@ class hero extends Contingent{
         hole.y = (prow)*75;
         
         this.lstHole.push(hole);
+
        
     }
 
@@ -348,6 +349,11 @@ class hero extends Contingent{
         creuse.update(dt);
         creuse.cameraX = map.cameraX;
         creuse.cameraY = map.cameraY;
+        if(creuse.rebuild && creuse.currentAnimation.end)
+        {
+            map.AlphaTuille[creuse.rowContingent][creuse.colContingent]= 100;
+            this.lstHole.splice(creuse , 1);
+        }
     })
 
     }
