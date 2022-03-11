@@ -184,17 +184,34 @@ class hero extends Contingent{
         {
             this.ReplaceHero();
 
-            if(STORE.getIteme('BTN_EVENT').is_Release("KeyF"))
+
+            //================ commande pour creuser =================
+
+            if(STORE.getIteme('BTN_EVENT').is_Release("KeyA"))
             {
-                
-                if(this.is_wall(-1,1)){
-                   
-                     
+                this.StartAnimation('runLeft');
+                if(this.is_wall(-1,1)&& !this.is_hole(-2,0) && !this.is_Gripable(-1,0)){
+                      
                     this.heroCreuse(this.colHero-2 , this.rowHero);
-                }
-                
+                }    
 
             }
+            if(STORE.getIteme('BTN_EVENT').is_Release("KeyF"))
+            { 
+                this.StartAnimation('runRight');
+                if(this.is_wall(1,1)&& !this.is_hole(0,0) && !this.is_Gripable(1,0)){
+                   
+                    
+                    this.heroCreuse(this.colHero , this.rowHero);
+                }    
+
+            }
+            //========================================================
+
+
+
+
+            //================== commande pour Deplacer ==============
 
             if(STORE.getIteme("BTN_EVENT").is_Pressed("ArrowRight")&& !this.is_wall(1,0) && !this.is_fallable(0,1))
             {

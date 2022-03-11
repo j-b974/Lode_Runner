@@ -97,11 +97,11 @@ class map{
         this.AlphaTuille = [];
         for (let l = 0; l < this.map.length; l++) {
             
-            let c  = this.map[l].length;
+            let nbcol  = this.map[l].length;
 
             this.AlphaTuille[l]= [];
 
-            for (let c = 0; c < l ; c++) {
+            for (let c = 0; c < nbcol ; c++) {
                
                 this.AlphaTuille[l][c] = 100;
                 
@@ -187,7 +187,6 @@ class map{
 
             for (let c = 0; c < nbcol; c++) {
         
-                x = this.tuilleWidth * c;
 
                 let tuille = ligne.substring(c,c+1);
                 if(this.is_drawable(tuille))
@@ -195,12 +194,10 @@ class map{
                      ctx.save();
                    
                         ctx.globalAlpha = this.AlphaTuille[l][c]/100;
-                   
-
-                        //  ctx.drawImage(this.lstTuille[tuille],x+this.cameraX,y+this.cameraY);
+                
 
                         let tuilleDraw = this.TuilleList[tuille];
-                        ctx.drawImage(this.lstTuilleMap , tuilleDraw.x , tuilleDraw.y ,tuilleDraw.width, tuilleDraw.height , x+this.cameraX , y+this.cameraY ,this.tuilleWidth*1 , this.tuilleHeight*1);
+                        ctx.drawImage(this.lstTuilleMap , tuilleDraw.x , tuilleDraw.y ,tuilleDraw.width, tuilleDraw.height ,(c*this.tuilleWidth )+this.cameraX , (l*this.tuilleHeight)+this.cameraY ,this.tuilleWidth*1 , this.tuilleHeight*1);
 
                      ctx.restore();
                 }else{
@@ -208,7 +205,7 @@ class map{
                 }
     
             }
-            y+= this.tuilleHeight;
+        
 
         }
 

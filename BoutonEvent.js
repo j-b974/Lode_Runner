@@ -8,7 +8,7 @@ class BoutonEvent{
         this.state = [];
         this.oldState = [];
 
-        this.pressable = ['ArrowUp','ArrowRight','ArrowDown','ArrowLeft','Space','KeyF'];
+        this.pressable = ['ArrowUp','ArrowRight','ArrowDown','ArrowLeft','Space','KeyF','KeyA'];
 
     }
 
