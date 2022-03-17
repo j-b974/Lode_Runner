@@ -4,18 +4,11 @@ class map{
 
     /**
      * @param {img} backgroundImg un img de font d'ecran;
-     * @param {[img]} lstTuille [ 0 => null ,h => imgH, p => imgp ];
      * @param {[string]} map ["000hhhppp",ppp000hhh];
      * @description la map doit etre liste de string representant les index de la liste de tuille
      */
-    constructor (backgroundImg, lstTuille , map)
+    constructor (backgroundImg , map)
     {
-        /**
-         * @var {[img]}
-         * @description tableau img index ex [0 => null ,h => imgH, p => imgp]
-         */
-        this.lstTuille = lstTuille;
-
         /**
          * @var {[string]}
          */
@@ -75,7 +68,7 @@ class map{
      */
     is_drawable(index)
     {
-        // return this.lstTuille[index] == undefined ? false : true ;
+       
         return this.TuilleList[index] == undefined ? false : true ;
     }
 
@@ -115,6 +108,8 @@ class map{
         let col = Math.floor(px / this.tuilleWidth);
 
         let row = Math.floor(py / this.tuilleHeight);
+
+        if(row < 0 || row > 16){ return ; };
 
         let nbMaxcol = this.map[row].length;
       

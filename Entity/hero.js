@@ -1,26 +1,24 @@
-class hero extends Contingent{
+class hero extends Contingent {
 
-    constructor(heroSprite)
+    constructor(Sprite)
     {
-        super(heroSprite);
+        super(Sprite);
 
         this.speed = 300;
         this.animation();
 
-        this.caseParcase = 75;
-        this.dist = 0
 
-
-        this.colHero = 3;
-        this.rowHero = 2;
-
-        this.colMove = 3;
+        this.col = 2;
+        this.row = 2;
+        this.colMove = 2;
         this.rowMove = 2;
+
+    
         this.loadPosition();
  
         this.treasureColleted = 0;
 
-        this.moving = false;
+      
 
         this.lstHole = [];
     }
@@ -28,8 +26,8 @@ class hero extends Contingent{
     loadPosition()
     {
         let map = STORE.getIteme("MAP");
-        this.X = (this.colHero-1 ) * map.tuilleWidth;
-        this.Y = (this.rowHero -1 ) * map.tuilleHeight;
+        this.X = (this.col -1) * map.tuilleWidth;
+        this.Y = (this.row-1 ) * map.tuilleHeight;
     }
     animation()
     {
@@ -47,41 +45,25 @@ class hero extends Contingent{
      * @description reglage distance en le hero et la tuille 
      * @returns {string}
      */
-    heroTuille(pxOff,pyOff)
+    Tuille(pxOff,pyOff)
     {
         let map = STORE.getIteme("MAP");
 
-        let x = (this.x + (this.width *0.5) ) + (map.tuilleWidth * pxOff);
+        let x = (this.x + (this.width *0.5) ) + (map.tuilleWidth * (pxOff));
         let y = (this.y+ (this.height)*0.3)+ (map.tuilleHeight*pyOff) ;
-         
+        
         let index =  map.getTuilleId( x, y);
         
         return index;
-       
+
     }
 
-    is_Gripable(pxOff , pyOff)
-    {
-        return 'e'== this.heroTuille(pxOff,pyOff);
-    }
-    is_fallable(pxOff ,pyOff)
-    {
-        return ('0'== this.heroTuille(pxOff,pyOff)|| 't' == this.heroTuille(pxOff,pyOff));
-    }
-    is_wall(pxOff , pyOff)
-    {
-        return 'h'== this.heroTuille(pxOff , pyOff);
-    }
-    is_liane(pxOff, pyOff)
-    {
-        return 'l'== this.heroTuille(pxOff , pyOff);
-    }
 
-    ReplaceHero()
+    Replace()
     {
         let map = STORE.getIteme("MAP");
-        this.x = (this.colHero-1)*map.tuilleWidth ;
-        this.y = (this.rowHero-1)*map.tuilleHeight;
+        this.x = (this.col-1)*map.tuilleWidth ;
+        this.y = (this.row-1)*map.tuilleHeight;
     }
 
     /**
@@ -96,14 +78,14 @@ class hero extends Contingent{
               let sprite = lstSprite[key];
             if(sprite instanceof Treasure)
             {
-                if(sprite.colContingent == (this.colHero+(pxOff) )&& sprite.rowContingent == (this.rowHero+(pyOff)) )
+                if(sprite.col == (this.col+(pxOff) )&& sprite.row == (this.row+(pyOff)) )
                 {
                     return true;
                 }
             }
             
         }
-        // return 't'== this.heroTuille(pxOff,pyOff);
+        // return 't'== this.Tuille(pxOff,pyOff);
         return false;
     }
 
@@ -116,13 +98,13 @@ class hero extends Contingent{
 
         for (const element in lstsprite) {
            
-            let Contingent = lstsprite[element];
+            let contingent = lstsprite[element];
        
-            if(Contingent instanceof Treasure)
+            if( contingent instanceof Treasure)
             {
-                if((this.colHero+(pxOff)) == Contingent.colContingent && (this.rowHero+(pyOff)) == Contingent.rowContingent)
+                if((this.col+(pxOff)) == contingent.col && (this.row+(pyOff)) == contingent.row)
                 {
-                    let index = lstsprite.indexOf(Contingent);
+                    let index = lstsprite.indexOf(contingent);
 
                     if(index != -1)
                     {
@@ -135,39 +117,24 @@ class hero extends Contingent{
             }
                 
            
-        }
-        
-            
-
+        }       
        
     }
 
-    is_hole(pxOff , pyOff)
-    {
-        let h =false;
-        this.lstHole.forEach(hole =>{
-            if(hole.colContingent == this.colHero+(pxOff) && hole.rowContingent == this.rowHero+(pyOff))
-            {
-               h =  true;
-            }
-            
-        })
-        return h;
-    }
-
-    heroCreuse(pcol , prow)
+    Creuse(pcol , prow)
     {
         let alphaT = STORE.getIteme("MAP").AlphaTuille;
         alphaT[prow][pcol]= 0;
 
         let hole = new Creuser(STORE.getIteme("LOADEUR").getImage('lstMap'));
-        hole.rowContingent = prow;
-        hole.colContingent= pcol;
+        hole.row = prow;
+        hole.col= pcol;
         hole.x = (pcol)*75;
         hole.y = (prow)*75;
         
         this.lstHole.push(hole);
 
+        STORE.addStorageIteme('LST_HOLE',this.lstHole);
        
     }
 
@@ -182,12 +149,12 @@ class hero extends Contingent{
         let MaxMapHeight = map.MaxHeight;
 
 
-        let heroX = this.x + this.cameraX;
-        let heroY = this.y + this.cameraY;
+        let X = this.x + this.cameraX;
+        let Y = this.y + this.cameraY;
 
         if(!this.moving)
         {
-            this.ReplaceHero();
+            this.Replace();
 
 
             //================ commande pour creuser =================
@@ -197,7 +164,7 @@ class hero extends Contingent{
                 this.StartAnimation('runLeft');
                 if(this.is_wall(-1,1)&& !this.is_hole(-2,0) && !this.is_Gripable(-1,0)){
                       
-                    this.heroCreuse(this.colHero-2 , this.rowHero);
+                    this.Creuse(this.col-2 , this.row);
                 }    
 
             }
@@ -207,7 +174,7 @@ class hero extends Contingent{
                 if(this.is_wall(1,1)&& !this.is_hole(0,0) && !this.is_Gripable(1,0)){
                    
                     
-                    this.heroCreuse(this.colHero , this.rowHero);
+                    this.Creuse(this.col , this.row);
                 }    
 
             }
@@ -251,12 +218,16 @@ class hero extends Contingent{
                 this.moving = true;
             }
 
+            // =============== Tomber ================
+
             if((this.is_fallable(0,1) || this.is_hole(-1 , 0)) && !this.is_liane(0,0))
             {
                 
                 this.rowMove++;
                 this.moving = true;
             }
+
+            // ===================== collecter les trésor ======================
             if(this.is_treasure(0,0))
             {
                 this.collect_treasure(0 ,0);
@@ -265,52 +236,11 @@ class hero extends Contingent{
 
         }
 
-        if(this.moving)
-        {
-            if(this.colMove > this.colHero)
-            {
-                this.x += this.speed*dt;
-                if(Math.floor(this.x/map.tuilleWidth)+1>= this.colMove)
-                {
-                    this.colHero = this.colMove;
-                    this.moving = false;
-                }
-            }
-            if(this.colMove < this.colHero)
-            {
-                this.x -= this.speed*dt;
-                let some = Math.floor( this.x / map.tuilleWidth ) + 1;
-                if( some < this.colMove)
-                {
-                    this.colHero = this.colMove;
-                    this.moving = false;
-                }
-            } 
-            if(this.rowMove > this.rowHero)
-            {
-                this.y += this.speed*dt;
-                if(Math.floor(this.y/map.tuilleWidth)+1 >= this.rowMove)
-                {
-                    this.rowHero = this.rowMove;
-                    this.moving = false;
-                }
-            } if(this.rowMove < this.rowHero)
-            {
-                this.y -= this.speed*dt;
-                if(Math.floor(this.y/map.tuilleWidth)+1< this.rowMove)
-                {
-                    this.rowHero = this.rowMove;
-                    this.moving = false;
-                }
-            }
-        }
-       
-
         //===================    gestion camera     =============
 
 
             // ============ deplacement ecran vers la gauche limité a la map ===============
-       if( heroX <= map.shadowCubeX && this.x >= map.shadowCubeX)
+       if( X <= map.shadowCubeX && this.x >= map.shadowCubeX)
        {  
            this.cameraX += dt*this.speed;
            map.cameraX += dt*this.speed;
@@ -319,14 +249,14 @@ class hero extends Contingent{
         // ============ deplacement ecran vers la droite limité a la map ===============
         let margeRight = MaxMapWidth -  (WidthWindow -(map.shadowCubeX+map.shadowCubeWidth)+this.setFrame.width);
 
-        if(heroX > map.shadowCubeX+map.shadowCubeWidth - this.setFrame.width && this.x < margeRight)
+        if(X > map.shadowCubeX+map.shadowCubeWidth - this.setFrame.width && this.x < margeRight)
         {
             this.cameraX -= dt*this.speed;
             map.cameraX -= dt*this.speed;
         }
 
         // ============ deplacement ecran vers le Haut limité a la map ===============
-       if(heroY <= map.shadowCubeY && this.y >= map.shadowCubeY)
+       if(Y <= map.shadowCubeY && this.y >= map.shadowCubeY)
        {
            this.cameraY += dt*this.speed;
            map.cameraY += dt*this.speed;
@@ -336,7 +266,7 @@ class hero extends Contingent{
 
        let margebottom =  MaxMapHeight-(( HeightWindow - map.shadowCubeHeight)/2) ;
        
-       if(heroY > map.shadowCubeY+map.shadowCubeHeight-this.setFrame.height && this.y <= margebottom )
+       if(Y > map.shadowCubeY+map.shadowCubeHeight-this.setFrame.height && this.y <= margebottom )
        {
             this.cameraY -= dt*this.speed;
             map.cameraY -= dt*this.speed;
@@ -350,15 +280,15 @@ class hero extends Contingent{
 
        this.lstHole.forEach(creuse =>{
 
-        creuse.update(dt);
-        creuse.cameraX = map.cameraX;
-        creuse.cameraY = map.cameraY;
-        if(creuse.rebuild && creuse.currentAnimation.end)
-        {
-            map.AlphaTuille[creuse.rowContingent][creuse.colContingent]= 100;
-            this.lstHole.splice(creuse , 1);
-        }
-    })
+            creuse.update(dt);
+            creuse.cameraX = map.cameraX;
+            creuse.cameraY = map.cameraY;
+            if(creuse.rebuild && creuse.currentAnimation.end)
+            {
+                map.AlphaTuille[creuse.row][creuse.col]= 100;
+                this.lstHole.splice(creuse , 1);
+            }
+        });
 
     }
     draw(ctx)
@@ -374,11 +304,11 @@ class hero extends Contingent{
 
          ctx.font = "28px serif";
          ctx.fillStyle = 'rgb(255, 255, 255)';
-         ctx.fillText('heroX '+Math.round(this.x),20,20);
-         ctx.fillText('heroY '+Math.round(this.y),20,50);
+         ctx.fillText('X '+Math.round(this.x),20,20);
+         ctx.fillText('Y '+Math.round(this.y),20,50);
          ctx.fillText('tresor ramasser '+this.treasureColleted,20,80);
 
    
-        // ctx.fillText('heroscreenY '+ Math.round(this.Y+this.cameraY),20,100);
+        // ctx.fillText('screenY '+ Math.round(this.Y+this.cameraY),20,100);
     }  
 }

@@ -1,5 +1,5 @@
 console.log("game chargé !!!")
-let map1 = [
+const map1 = [
     'h0ehhhhhhhhhhhhh',
     'h0e0t000lllllMth',
     'h0e0hehh00000hhh',

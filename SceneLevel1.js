@@ -16,20 +16,12 @@ class SceneLevel1{
         this.loadSprite(map1);
 
         // ========== map =================
-        let herb = new Image();
-        herb.src ="./img/herbe_tuille.png";
 
-        let echel = new Image();
-        echel.src="./img/echel_Foureges.png";
-    
-        let ImgLevel = [];
-        ImgLevel['h']= herb;
-        ImgLevel['e']=echel;
     
         let imgforet = new Image();
         imgforet.src = "./img/foret.jpg";
     
-        let levelmap = new map(imgforet , ImgLevel , map1);
+        let levelmap = new map(imgforet  , map1);
     
         STORE.addStorageIteme('MAP', levelmap)
     
@@ -40,6 +32,8 @@ class SceneLevel1{
         img.src ="./img/vic.png";
     
         this.Hero = new hero(img);
+
+        STORE.addStorageIteme('HERO',this.Hero);
     }
 
     is_Sprite(pid)
@@ -95,6 +89,8 @@ class SceneLevel1{
     }
     update(dt)
     {
+        STORE.getIteme('MAP').update(dt);
+
 
         this.lstSprite.forEach((sprite)=>
         {
@@ -105,7 +101,6 @@ class SceneLevel1{
         this.Hero.update(dt);
 
 
-        STORE.getIteme('MAP').update(dt);
 
     }
     draw(ctx)
