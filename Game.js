@@ -9,9 +9,9 @@ const map1 = [
     'h0e00e000e000M0h',
     'hhhhhhhhhehhhheh',
     'h00000000e0000eh',
-    'h00000000eM000eh',
+    'h000000M0e0000eh',
     'h000000hhhhh00eh',
-    'h0t0000000M0t0eh',
+    'h0t00000M000t0eh',
     'hhhhhhhhhhhhhhhh',
 
 ];

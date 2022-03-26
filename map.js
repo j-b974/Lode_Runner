@@ -109,11 +109,13 @@ class map{
 
         let row = Math.floor(py / this.tuilleHeight);
 
-        if(row < 0 || row > 16){ return ; };
+        if(row < 0 || row >= this.map.length){ return ; };
 
-        let nbMaxcol = this.map[row].length;
+        let ligne = this.map[row];
+    
+        let nbMaxcol = ligne.length;
       
-        let nbMaxrow =this.map.length-1 ;
+        let nbMaxrow = this.map.length-1 ;
 
   
         

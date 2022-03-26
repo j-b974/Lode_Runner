@@ -44,51 +44,52 @@ class Contingent extends sprite
      */
     Tuille(pxOff,pyOff)
     {
-    let map = STORE.getIteme("MAP");
+        let map = STORE.getIteme("MAP");
 
-    let x = (this.x ) + (map.tuilleWidth * (pxOff));
-    let y = this.y+ (map.tuilleHeight*(pyOff+1)) ;
+        let x = (this.x ) + (map.tuilleWidth * (pxOff));
+        let y = this.y + (map.tuilleHeight*(pyOff)) ;
 
-    let index =  map.getTuilleId( x, y);
+        let index =  map.getTuilleId( x, y);
 
-    return index;
+        return index;
 
     }
      
-         is_Gripable(pxOff , pyOff)
-         {
-            return 'e'== this.Tuille(pxOff,pyOff);
-         }
-         is_fallable(pxOff ,pyOff)
-         {
-            return ('0'== this.Tuille(pxOff,pyOff)|| 't' == this.Tuille(pxOff,pyOff));
-         }
-         is_wall(pxOff , pyOff)
-         {
-            return 'h'== this.Tuille(pxOff , pyOff);
-         }
-         is_liane(pxOff, pyOff)
-         {
-            return 'l'== this.Tuille(pxOff , pyOff);
-         }
+    is_Gripable(pxOff , pyOff)
+    {
+        return 'e'== this.Tuille(pxOff,pyOff);
+    }
+    is_fallable(pxOff ,pyOff)
+    {
+        return ('0'== this.Tuille(pxOff,pyOff)|| 't' == this.Tuille(pxOff,pyOff));
+    }
+    is_wall(pxOff , pyOff)
+    {
+        return 'h'== this.Tuille(pxOff , pyOff);
+    }
+    is_liane(pxOff, pyOff)
+    {
+        return 'l'== this.Tuille(pxOff , pyOff);
+    }
 
-         is_hole(pxOff , pyOff)
-         {
-             let lstHole = STORE.getIteme('LST_HOLE');
+    is_hole(pxOff , pyOff)
+    {
+        let lstHole = STORE.getIteme('LST_HOLE');
 
-             if(!lstHole){return false;}
+        if(!lstHole){return false;}
 
-             let h =false;
+        let h =false;
 
-             lstHole.forEach(hole =>{
-                 if(hole.col == this.col+(pxOff) && hole.row == this.row+(pyOff))
-                 {
-                    h =  true;
-                 }
-                 
-            });
-             return h;
-         }
+        lstHole.forEach(hole =>{
+
+            if(hole.col == this.col+(pxOff) && hole.row == this.row+(pyOff))
+            {
+                h =  true;
+            }
+            
+        });
+        return h;
+    }
 
     update(dt)
     {

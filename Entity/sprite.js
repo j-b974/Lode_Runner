@@ -26,6 +26,7 @@ class sprite{
         this.currentUpFrame = 0;
         this.timer = 0;
         
+        this.ajustY=0;
 
     }
     setAnimation(pwidth , pheight )
@@ -121,7 +122,7 @@ class sprite{
             let y = this.setFrame.height * row ;
 
 
-            ctx.drawImage(this.img , x , y ,this.setFrame.width, this.setFrame.height , this.x+this.cameraX ,this.y+this.cameraY , this.setFrame.width*this.scall , this.setFrame.height*this.scall);
+            ctx.drawImage(this.img , x , y ,this.setFrame.width, this.setFrame.height , this.x+this.cameraX ,this.y+this.cameraY+this.ajustY , this.setFrame.width*this.scall , this.setFrame.height*this.scall);
         }
     }
 }
