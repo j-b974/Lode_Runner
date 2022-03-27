@@ -1,5 +1,15 @@
+
 console.log("game chargé !!!")
-const map1 = [
+
+import {
+    Storage,
+    BoutonEvent,
+    SceneManager,
+    SceneDebut,
+    SceneLevel1,
+} from './moduleInjection.js';
+
+window.map1 = [
     'h0ehhhhhhhhhhhhh',
     'h0e0t000lllllMth',
     'h0e0hehh00000hhh',
@@ -16,7 +26,8 @@ const map1 = [
 
 ];
 
-let STORE = null;
+window.STORE = null; 
+ 
 
 function Btnpress(even)
 {
@@ -42,12 +53,14 @@ function Game_load()
 
     let sceneManage = new SceneManager();
 
+   
+
     sceneManage.addScene('SCENE_LEVEL1', new SceneLevel1());
     sceneManage.addScene('SCENE_DEBUT', new SceneDebut());
     sceneManage.setScene('SCENE_DEBUT');
     
+    
     STORE.addStorageIteme('SCENE_MANAGER', sceneManage);
-
     
 
    
@@ -65,3 +78,8 @@ function Game_draw(ctx)
    STORE.getIteme('SCENE_MANAGER').draw(ctx);
 
 }
+
+
+export {
+    Game_load , Game_update , Game_draw
+};

@@ -1,5 +1,10 @@
 console.log("connecté");
 
+import {
+    Game,
+} from './moduleInjection.js';
+
+// var jx = require('./moduleInjection.js');// jeux
 
 let cavas = document.getElementById('jeux_lode_runner');
 
@@ -15,12 +20,12 @@ let Timer = new Date();
 //   cavas.height = window.innerHeight;
 
 
-const WidthWindow = cavas.clientWidth;
+window.WidthWindow = cavas.clientWidth;
 
-const HeightWindow = cavas.clientHeight;
+window.HeightWindow = cavas.clientHeight;
 
 
-function Game()
+function GameInit()
 {
     let TimeCurrent = new Date();
 
@@ -28,20 +33,19 @@ function Game()
 
     Timer = TimeCurrent;
 
-    Game_update(dt);
+    Game.Game_update(dt);
 
     CTX.clearRect(0 , 0 ,  WidthWindow , HeightWindow );
 
-    Game_draw(CTX);
+    Game.Game_draw(CTX);
 
 }
 
 function init()
 {
-  
     CTX.imageSmoothingEnabled = false;
-    Game_load();
-    interval = setInterval(Game ,1000/60);
+    Game.Game_load();
+    interval = setInterval(GameInit ,1000/60);
 }
 
 init();

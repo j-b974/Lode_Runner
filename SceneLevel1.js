@@ -1,3 +1,11 @@
+import{ 
+    map,
+    hero,  
+    Monstre,
+    Treasure,
+    
+} from './moduleInjection.js';
+
 class SceneLevel1{
 
     constructor()
@@ -116,3 +124,4 @@ class SceneLevel1{
         this.Hero.draw(ctx)
     }
 }
+export {SceneLevel1};

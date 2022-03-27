@@ -24,3 +24,4 @@ class SceneManager{
         this.sceneCurrent.draw(ctx);
     }
 }
+export { SceneManager};

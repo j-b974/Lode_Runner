@@ -1,3 +1,4 @@
+import {sprite} from './sprite.js';
 class Contingent extends sprite
 {
     /**
@@ -163,3 +164,4 @@ class Contingent extends sprite
         
     // }
 }
+export{Contingent};

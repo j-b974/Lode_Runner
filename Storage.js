@@ -1,4 +1,3 @@
-
 class Storage{
 
     constructor()
@@ -29,3 +28,4 @@ class Storage{
 
 
 }
+export{ Storage };

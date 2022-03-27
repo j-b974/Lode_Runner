@@ -215,3 +215,4 @@ class map{
         
     }
 }
+export {map};

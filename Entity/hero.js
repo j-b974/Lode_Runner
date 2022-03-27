@@ -1,3 +1,5 @@
+
+import{Contingent,Treasure ,Creuser,} from '../moduleInjection.js';
 class hero extends Contingent {
 
     constructor(Sprite)
@@ -312,3 +314,4 @@ class hero extends Contingent {
         // ctx.fillText('screenY '+ Math.round(this.Y+this.cameraY),20,100);
     }  
 }
+export {hero};

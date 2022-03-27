@@ -1,5 +1,8 @@
+import {Loader} from './moduleInjection.js';
+
 class SceneDebut{
 
+   
     constructor()
     {
        this.loading = false;
@@ -68,3 +71,4 @@ class SceneDebut{
         ctx.restore();
     }
 }
+export {SceneDebut};

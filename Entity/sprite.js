@@ -125,4 +125,5 @@ class sprite{
             ctx.drawImage(this.img , x , y ,this.setFrame.width, this.setFrame.height , this.x+this.cameraX ,this.y+this.cameraY+this.ajustY , this.setFrame.width*this.scall , this.setFrame.height*this.scall);
         }
     }
-}
+};
+export {sprite};

@@ -1,3 +1,4 @@
+import {Contingent} from './Contingent.js';
 class Treasure extends Contingent{
     constructor(pimg, pCol , pRow)
     {
@@ -16,3 +17,4 @@ class Treasure extends Contingent{
 
     }
 }
+export {Treasure};

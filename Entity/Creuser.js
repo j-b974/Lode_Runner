@@ -1,3 +1,5 @@
+import {Contingent} from './Contingent.js';
+
 class Creuser extends Contingent
 {
     constructor(pimg , pCol , pRow)
@@ -34,3 +36,4 @@ class Creuser extends Contingent
 
     }
 }
+export {Creuser};

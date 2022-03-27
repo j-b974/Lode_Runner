@@ -1,3 +1,4 @@
+import {Contingent} from './Contingent.js';
 class Monstre extends Contingent{
 
     constructor(pimg , pcol , prow)
@@ -142,3 +143,4 @@ class Monstre extends Contingent{
  
 
 }
+export {Monstre};
