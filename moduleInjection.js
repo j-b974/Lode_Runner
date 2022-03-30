@@ -1,4 +1,4 @@
-console.log("injection de moduel appeler !!!");
+// console.log("injection de moduel appeler !!!");
 
 
 //  fnc  export {fonction} from "./function.js"),
@@ -8,6 +8,7 @@ console.log("injection de moduel appeler !!!");
     export {sprite}  from "./Entity/sprite.js";
     export {Contingent}  from "./Entity/Contingent.js";
     export {hero}  from "./Entity/hero.js";
+    export {Pathfinding} from "./Outiles/Pathfinding.js";
     export {map}  from "./map.js";
     export {SceneDebut } from "./SceneDebut.js";
     export {Monstre }  from "./Entity/Monstre.js";

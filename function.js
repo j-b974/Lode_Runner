@@ -30,3 +30,20 @@ function isCollision(x1,y1,w1,h1, x2,y2,w2,h2){
            y1 < y2+h2 &&
            y2 < y1+h1;
   }
+
+/**
+ * 
+ * @param {*} pctx 
+ * @param {*} px 
+ * @param {*} py 
+ * @param {*} prayon 
+ * @description dessin un cercle 
+ */
+  function drawCircle(pctx , px , py , prayon)
+  {
+      pctx.fillStyle = 'rgb(255,255, 255)';
+      pctx.beginPath();
+      pctx.arc(px, py , prayon, 0, 2 * Math.PI, false);
+      pctx.stroke();
+      pctx.fill();
+  }

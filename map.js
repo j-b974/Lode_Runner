@@ -1,3 +1,6 @@
+
+import {Pathfinding} from "./moduleInjection.js";
+
 class map{
 
     // TO DO scroler le background
@@ -56,8 +59,53 @@ class map{
         this.setAphaTuile();
         // this.AlphaTuille[7][2] = 0;
 
+        //================ pour pathfinding ========
+
+        this.mappingF = [];
+
+        this.generat_mappingF();
+        
+        
 
         
+    }
+    generat_mappingF()
+    {
+        let buildfinging = new Pathfinding(this.map);
+        buildfinging.generate_map_format();
+
+        this.mappingF = [];
+       for(let l = 0 ; l < this.map.length ; l++)
+       {
+           let row = this.map[l];
+
+           this.mappingF[l] = [];
+        
+
+
+           for(let c=0 ; c < row.length ; c++)
+           {
+               let tuille = row.substring(c,c+1);
+
+
+
+               // 0 path walkable || 1 not walk 
+               if(
+                   tuille == "l" || 
+                   ( this.getTuilleId((c)*this.tuilleWidth , (l+1)*this.tuilleHeight) == 'h' && tuille != 'h' )||
+                   (this.getTuilleId((c)*this.tuilleWidth , (l)*this.tuilleHeight) == 'e' )|| 
+                   (this.getTuilleId((c)*this.tuilleWidth , (l+1)*this.tuilleHeight) == 'e' && tuille != 'h')
+                )
+               {
+                   this.mappingF[l][c] = 0;
+               }else{
+                   this.mappingF[l][c] = 1;
+               }
+
+           }
+       }
+        
+        console.log("pathfinding :",this.mappingF);
     }
 
     /**
@@ -205,6 +253,26 @@ class map{
         
 
         }
+
+        // drawCircle(ctx , 50 , 50 , 50);
+
+        //=========================== point pathfinfing ============
+
+        for(let pathL=0 ; pathL< this.mappingF.length ; pathL++)
+        {
+
+            for(let pathC = 0 ; pathC < this.mappingF[pathL].length ; pathC++)
+            {
+                if(this.mappingF[pathL][pathC] == 0)
+                {
+
+                    drawCircle(ctx , ((pathC* this.tuilleWidth)+(this.tuilleWidth/2)) + this.cameraX , ((pathL*this.tuilleHeight)+(this.tuilleHeight/2)) +this.cameraY , 5);
+                }
+
+
+            }
+        }
+        
 
         //============ debug voir le shadqowCube ======================  
 
