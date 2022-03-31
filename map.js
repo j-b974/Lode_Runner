@@ -71,9 +71,6 @@ class map{
     }
     generat_mappingF()
     {
-        let buildfinging = new Pathfinding(this.map);
-        buildfinging.generate_map_format();
-
         this.mappingF = [];
        for(let l = 0 ; l < this.map.length ; l++)
        {
@@ -99,13 +96,14 @@ class map{
                {
                    this.mappingF[l][c] = 0;
                }else{
-                   this.mappingF[l][c] = 1;
+                   this.mappingF[l][c] = 0;
                }
 
            }
        }
+       console.log('map initial',this.mappingF);
         
-        console.log("pathfinding :",this.mappingF);
+       let buildfinging = new Pathfinding(this.mappingF);
     }
 
     /**
