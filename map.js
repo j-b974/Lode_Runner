@@ -86,7 +86,7 @@ class map{
 
 
 
-               // 0 path walkable || 1 not walk 
+               // 1 path walkable || 0 not walk 
                if(
                    tuille == "l" || 
                    ( this.getTuilleId((c)*this.tuilleWidth , (l+1)*this.tuilleHeight) == 'h' && tuille != 'h' )||
@@ -94,7 +94,7 @@ class map{
                    (this.getTuilleId((c)*this.tuilleWidth , (l+1)*this.tuilleHeight) == 'e' && tuille != 'h')
                 )
                {
-                   this.mappingF[l][c] = 0;
+                   this.mappingF[l][c] = 1;
                }else{
                    this.mappingF[l][c] = 0;
                }
@@ -261,7 +261,7 @@ class map{
 
             for(let pathC = 0 ; pathC < this.mappingF[pathL].length ; pathC++)
             {
-                if(this.mappingF[pathL][pathC] == 0)
+                if(this.mappingF[pathL][pathC] == 1)
                 {
 
                     drawCircle(ctx , ((pathC* this.tuilleWidth)+(this.tuilleWidth/2)) + this.cameraX , ((pathL*this.tuilleHeight)+(this.tuilleHeight/2)) +this.cameraY , 5);

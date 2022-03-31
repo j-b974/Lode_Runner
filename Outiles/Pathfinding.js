@@ -1,4 +1,4 @@
-import * as PF from '../src/pathfinding/pathfinding.js';
+import {astar, Graph}from '../src/pathFindingAstar/Astar.js';
 export class Pathfinding
 {
     constructor(map)
@@ -14,17 +14,21 @@ export class Pathfinding
     get_path_finding()
     {
         
-        this.grid = new PF.Grid(this.map);
+        this.grid = new Graph(this.map);
 
-        let gridbackup = this.grid.clone();
+        /**
+         * Graph.grid[row][col]
+         */
+        let start = this.grid.grid[1][4];
+        let end = this.grid.grid[3][5];
 
-        let finder = new PF.BreadthFirstFinder({
-            heuristic: function(dx, dy) {
-                return Math.min(dx, dy);
-            }
-        });
-        var path = finder.findPath(3, 1, 2, 7, this.grid);
+        /**
+         * @var {[GridNode]} {x : row , y:col}
+         */
+        var resul = astar.search( this.grid, start, end, { heuristic: astar.heuristics.manhattan });
 
-        console.log('le chemin', path);
+       
+
+        console.log('le chemin', resul);
     }
 }
