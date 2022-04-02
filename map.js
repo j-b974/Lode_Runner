@@ -69,6 +69,9 @@ class map{
 
         
     }
+    /**
+     * @description gener une tableau [[0,0,1],[0,1,0]] appartir de la map
+     */
     generat_mappingF()
     {
         this.mappingF = [];
@@ -101,10 +104,22 @@ class map{
 
            }
        }
-       console.log('map initial',this.mappingF);
+    //    console.log('map initial',this.mappingF);
         
-       let buildfinging = new Pathfinding(this.mappingF);
+       
     }
+
+    get_path_finding(prow , pcol)
+    {
+        let targe = STORE.getIteme('HERO');
+
+        let buildfinging = new Pathfinding(this.mappingF);
+
+        return  buildfinging.get_path_finding(prow, pcol ,targe.row, targe.col);
+
+    }
+
+    
 
     /**
      * 
@@ -252,24 +267,23 @@ class map{
 
         }
 
-        // drawCircle(ctx , 50 , 50 , 50);
 
-        //=========================== point pathfinfing ============
+        // =========================== debug point pathfinfing ============
 
-        for(let pathL=0 ; pathL< this.mappingF.length ; pathL++)
-        {
+        // for(let pathL=0 ; pathL< this.mappingF.length ; pathL++)
+        // {
 
-            for(let pathC = 0 ; pathC < this.mappingF[pathL].length ; pathC++)
-            {
-                if(this.mappingF[pathL][pathC] == 1)
-                {
+        //     for(let pathC = 0 ; pathC < this.mappingF[pathL].length ; pathC++)
+        //     {
+        //         if(this.mappingF[pathL][pathC] == 1)
+        //         {
 
-                    drawCircle(ctx , ((pathC* this.tuilleWidth)+(this.tuilleWidth/2)) + this.cameraX , ((pathL*this.tuilleHeight)+(this.tuilleHeight/2)) +this.cameraY , 5);
-                }
+        //             drawCircle(ctx , ((pathC* this.tuilleWidth)+(this.tuilleWidth/2)) + this.cameraX , ((pathL*this.tuilleHeight)+(this.tuilleHeight/2)) +this.cameraY , 5);
+        //         }
 
 
-            }
-        }
+        //     }
+        // }
         
 
         //============ debug voir le shadqowCube ======================  

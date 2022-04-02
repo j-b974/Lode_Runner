@@ -21,7 +21,6 @@ class SceneLevel1{
     }
     load()
     {
-        this.loadSprite(map1);
 
         // ========== map =================
 
@@ -32,6 +31,10 @@ class SceneLevel1{
         let levelmap = new map(imgforet  , map1);
     
         STORE.addStorageIteme('MAP', levelmap)
+
+        //============= load sprite ========
+        
+        this.loadSprite(map1);
     
         // ============ hero ================
     

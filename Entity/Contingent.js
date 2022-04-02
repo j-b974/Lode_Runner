@@ -62,7 +62,7 @@ class Contingent extends sprite
     }
     is_fallable(pxOff ,pyOff)
     {
-        return ('0'== this.Tuille(pxOff,pyOff)|| 't' == this.Tuille(pxOff,pyOff));
+        return ('0'== this.Tuille(pxOff,pyOff)|| 't' == this.Tuille(pxOff,pyOff)|| 'M'== this.Tuille(pxOff,pyOff));
     }
     is_wall(pxOff , pyOff)
     {

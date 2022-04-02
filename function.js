@@ -39,9 +39,9 @@ function isCollision(x1,y1,w1,h1, x2,y2,w2,h2){
  * @param {*} prayon 
  * @description dessin un cercle 
  */
-  function drawCircle(pctx , px , py , prayon)
+  function drawCircle(pctx , px , py , prayon,pcolor)
   {
-      pctx.fillStyle = 'rgb(255,255, 255)';
+      pctx.fillStyle = pcolor;
       pctx.beginPath();
       pctx.arc(px, py , prayon, 0, 2 * Math.PI, false);
       pctx.stroke();

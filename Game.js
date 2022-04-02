@@ -14,14 +14,14 @@ window.map1 = [
     'h0e0t000lllllMth',
     'h0e0hehh00000hhh',
     'h0e00e000000000h',
-    'h0e00e00M000000h',
+    'h0e00el00000000h',
     'h0e00e0hhhhh000h',
     'h0e00e000e000M0h',
     'hhhhhhhhhehhhheh',
     'h00000000e0000eh',
-    'h000000M0e0000eh',
+    'h00000000e0000eh',
     'h000000hhhhh00eh',
-    'h0t00000M000t0eh',
+    'hMt000000000t0eh',
     'hhhhhhhhhhhhhhhh',
 
 ];
